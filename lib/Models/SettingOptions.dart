@@ -1,14 +1,14 @@
 import '../Analysis/analysisData.dart';
 import 'option.dart';
 
-class ExerciseOptions extends Options {
+class SettingOptions extends Options {
 
   save() async {
-    await saveAsync("exercise.json");
+    await saveAsync("settings.json");
   }
 
   load() async {
-    await loadAsync("exercise.json");
+    await loadAsync("settings.json");
     if(needUpdate()){
       getDefaultOptions();
       save();
