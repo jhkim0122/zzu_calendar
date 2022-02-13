@@ -26,16 +26,19 @@ class Running {
   DateTime startTime;
   double distance;
   Pace pace;
+  String memo;
 
-  Running(this.startTime, this.distance, this.pace, {this.eventName = "Running"});
+  Running(this.startTime, this.distance, this.pace, {this.memo = "", this.eventName = "Running"});
 }
 
 class Workout {
   String eventName = "Workout";
   DateTime startTime;
   String part;
+  int time;
+  String memo;
 
-  Workout(this.startTime, this.part, {this.eventName = "Workout"});
+  Workout(this.startTime, this.part, this.time, {this.memo = "", this.eventName = "Workout"});
 }
 
 class Pace {

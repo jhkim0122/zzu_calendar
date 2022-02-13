@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../Models/ExerciseDataSource.dart';
+import '../utils/SideDrawer.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _CalendarPageState extends State<CalendarPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideDrawer(0),
         appBar: AppBar(
           backgroundColor: Colors.white,
             title: Text("Calendar"),
@@ -28,16 +30,16 @@ class _CalendarPageState extends State<CalendarPage>{
           child:SfCalendar(
             view: CalendarView.month,
             dataSource: ExerciseDataSource([
-              Running(DateTime(2022, 2, 6), 5.07, Pace(5, 53)),
+              Running(DateTime(2022, 2, 6), 5.07, Pace(5, 53), memo: "아 존잼으로 뛰었땅 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ껄껄 아 쓸 말 없엉 ;; "),
               Running(DateTime(2022, 1, 24), 3.07, Pace(5, 53)),
-              Workout(DateTime(2022, 1, 24), "등"),
-              Running(DateTime(2022, 1, 22), 1.27, Pace(5, 12)),
+              Workout(DateTime(2022, 1, 24), "등", 65),
+              Running(DateTime(2022, 1, 22), 1.22, Pace(5, 12)),
               Running(DateTime(2022, 1, 17), 3.43, Pace(5, 33)),
               Running(DateTime(2022, 1, 2), 5.05, Pace(5, 34)),
-              Workout(DateTime(2022, 2, 5), "어깨"),
-              Workout(DateTime(2022, 2, 4), "가슴"),
-              Workout(DateTime(2022, 2, 3), "등"),
-              Workout(DateTime(2022, 1, 31), "하체"),
+              Workout(DateTime(2022, 2, 5), "어깨", 65),
+              Workout(DateTime(2022, 2, 4), "가슴", 65),
+              Workout(DateTime(2022, 2, 3), "등", 65),
+              Workout(DateTime(2022, 1, 31), "하체", 65),
             ]),
             monthViewSettings: MonthViewSettings(appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
             onTap: (CalendarTapDetails calendarTapDetails) async {
@@ -185,8 +187,29 @@ class _CalendarPageState extends State<CalendarPage>{
                         Padding(
                           padding: EdgeInsets.only(left:5),
                           child:Text(appointment.pace.min.toString()+"' "+appointment.pace.micro.toString()+"''", style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),])
-                ])
+                        ),
+                      ]),
+                ] + ( appointment.memo != "" ?
+                    <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical:5, horizontal:5),
+                        child: Divider(color: Colors.black45, thickness: 1,),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left:10),
+                        child:Text("Memo", style: TextStyle(color: Colors.grey)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:5, left:10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white54,
+                        ),
+                        child:Text(appointment.memo, style: TextStyle(color: Colors.black54, fontSize:15, fontWeight: FontWeight.w500)),
+                      ),
+                    ] : <Widget>[SizedBox()])
+                )
           )
         );
       }
@@ -209,15 +232,41 @@ class _CalendarPageState extends State<CalendarPage>{
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:[
                       Padding(
-                        padding: EdgeInsets.only(left:10),
+                        padding: EdgeInsets.only(left:20),
                         child:Text("Part", style: TextStyle(color: Colors.grey)),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left:5),
                         child:Text(appointment.part, style: TextStyle(fontWeight: FontWeight.w500)),
                       ),
-                    ]),
-                    ])
+                      Padding(
+                        padding: EdgeInsets.only(left:10),
+                        child:Text("Time", style: TextStyle(color: Colors.grey)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left:5),
+                        child:Text(appointment.time.toString() + "min", style: TextStyle(fontWeight: FontWeight.w600)),
+                      ),]),
+                    ] + ( appointment.memo != "" ?
+                    <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical:5, horizontal:5),
+                        child: Divider(color: Colors.black45, thickness: 1,),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left:10),
+                        child:Text("Memo", style: TextStyle(color: Colors.grey)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:5, left:10),
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white54,
+                        ),
+                        child:Text(appointment.memo, style: TextStyle(color: Colors.black54, fontSize:15, fontWeight: FontWeight.w500)),
+                      ),
+                    ] : <Widget>[SizedBox()]))
             )
         );
       }
