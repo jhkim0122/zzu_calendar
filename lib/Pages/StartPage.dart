@@ -20,7 +20,7 @@ class _StartPageState extends State<StartPage>{
 
     int i=0;
 
-    timer = Timer.periodic(Duration(seconds:3), (_) {
+    timer = Timer.periodic(Duration(seconds:1), (_) {
       i++;
       if(i==1) Navigator.of(context).popAndPushNamed("/calendar");
     });
