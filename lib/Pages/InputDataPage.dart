@@ -369,7 +369,11 @@ class _InputDataPageState extends State<InputDataPage> {
       saveFlag = saveFlag && type!="";
     }
 
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+    child: Scaffold(
       backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(top:40),
@@ -478,6 +482,6 @@ class _InputDataPageState extends State<InputDataPage> {
           }
         }
       ),
-    );
+    ));
   }
 }
