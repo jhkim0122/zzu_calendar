@@ -1,4 +1,4 @@
-import '../Analysis/analysisData.dart';
+import '../../Analysis/analysisData.dart';
 import 'option.dart';
 
 class SettingOptions extends Options {
