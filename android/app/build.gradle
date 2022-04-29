@@ -46,8 +46,8 @@ android {
         applicationId "com.zzu.zzu_calendar"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 1
+        versionName "v0.0.1"
     }
 
     buildTypes {
