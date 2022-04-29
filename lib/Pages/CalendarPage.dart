@@ -137,7 +137,8 @@ class _CalendarPageState extends State<CalendarPage>{
                         data.startTime == appointment.startTime &&
                         data.distance == appointment.distance &&
                         data.paceMin == appointment.paceMin &&
-                        data.paceSecond == appointment.paceSecond) deleteData = data;
+                        data.paceSecond == appointment.paceSecond &&
+                        data.memo == appointment.memo) deleteData = data;
                   }
                   if(deleteData != null) {
                     gDataSources.remove(deleteData);
@@ -214,7 +215,8 @@ class _CalendarPageState extends State<CalendarPage>{
                         if(data.eventName == appointment.eventName &&
                             data.startTime == appointment.startTime &&
                             data.part == appointment.part &&
-                            data.time == appointment.time) deleteData = data;
+                            data.time == appointment.time &&
+                            data.memo == appointment.memo) deleteData = data;
                       }
                       if(deleteData != null) {
                         gDataSources.remove(deleteData);
@@ -287,7 +289,8 @@ class _CalendarPageState extends State<CalendarPage>{
                       for(var data in gDataSources){
                         if(data.eventName == appointment.eventName &&
                             data.startTime == appointment.startTime &&
-                            data.type == appointment.type) deleteData = data;
+                            data.type == appointment.type &&
+                            data.memo == appointment.memo) deleteData = data;
                       }
                       if(deleteData != null) {
                         gDataSources.remove(deleteData);
