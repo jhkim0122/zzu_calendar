@@ -17,6 +17,8 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage>{
 
+  CalendarController _controller = CalendarController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,22 +35,26 @@ class _CalendarPageState extends State<CalendarPage>{
           child:SfCalendar(
             view: CalendarView.month,
             dataSource: ExerciseDataSource(gDataSources),
+              controller: _controller,
             monthViewSettings: MonthViewSettings(appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
             onTap: (CalendarTapDetails calendarTapDetails) async {
               await _popupDetails(calendarTapDetails);
             },
             appointmentBuilder: (BuildContext context, CalendarAppointmentDetails details) {
+              bool isSameMonth = true;
+              if(_controller.displayDate?.month != details.appointments.first.startTime.month) isSameMonth = false;
+
               if(details.appointments.first.eventName == "Running") {
                 Running running = details.appointments.first;
                 return Container(
                   margin: EdgeInsets.only(left:5),
                   padding: EdgeInsets.only(top:2,left:2),
                   decoration: BoxDecoration(
-                    color: Colors.amber.withOpacity(0.5),
+                    color: isSameMonth ? Colors.amber.withOpacity(0.5) : Colors.amber.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(5)
                   ),
                   child: Text(running.distance.toStringAsFixed(2)+"km",
-                      style: TextStyle(fontSize:(running.distance>10? 12:14),fontWeight: FontWeight.w500)),
+                      style: TextStyle(fontSize:(running.distance>10? 12:14),fontWeight: FontWeight.w500, color: isSameMonth? Colors.black:Colors.grey)),
                 );
               }
               else if(details.appointments.first.eventName == "Workout"){
@@ -57,10 +63,10 @@ class _CalendarPageState extends State<CalendarPage>{
                   margin: EdgeInsets.only(left:5),
                   padding: EdgeInsets.only(left:5, top:3),
                   decoration: BoxDecoration(
-                      color: Colors.deepOrangeAccent.withOpacity(0.5),
+                      color: isSameMonth ? Colors.deepOrangeAccent.withOpacity(0.5) : Colors.deepOrangeAccent.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(5)
                   ),
-                  child: Text(workout.part, style: TextStyle(overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w400, fontSize:13)),
+                  child: Text(workout.part, style: TextStyle(overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w400, fontSize:13, color: isSameMonth? Colors.black:Colors.grey)),
                 );
               }
               else if(details.appointments.first.eventName == "Shooting"){
@@ -69,10 +75,10 @@ class _CalendarPageState extends State<CalendarPage>{
                   margin: EdgeInsets.only(left:5),
                   padding: EdgeInsets.only(left:5, top:3),
                   decoration: BoxDecoration(
-                      color: Colors.lime.withOpacity(0.5),
+                      color: isSameMonth ? Colors.lime.withOpacity(0.5) : Colors.lime.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(5)
                   ),
-                  child: Text(shooting.type, style: TextStyle(overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w400, fontSize:13)),
+                  child: Text(shooting.type, style: TextStyle(overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w400, fontSize:13, color: isSameMonth? Colors.black:Colors.grey)),
                 );
               }
               else {return Container();}
